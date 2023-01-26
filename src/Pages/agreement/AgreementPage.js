@@ -29,13 +29,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-
 function AgreementPage() {
 
   const { openModal, setOpenModal, agreementIdEdit, updating, setAgreementIdEdit, setUpdating } = React.useContext(AppContext);
 
   const [loading, setLoading] = useState(true);
   const [agreement, setAgreement] = useState([]);
+  const [itemSearch, setItemSearch] = useState('');
 
   useEffect(() => {
     getListAgreement().then(data => {
@@ -45,13 +45,19 @@ function AgreementPage() {
     );
   }, [openModal]);
 
-  const handleClickOpen = () => {
+  const   handleClickOpen = () => {
     setOpenModal(true);
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
   }
+
+  const onChange = (event) => {
+    if (event.target.name === 'itemSearch')    
+    setItemSearch(event.target.value)
+  }
+
 
   const onClickDelete = (companyId) => {
     deleteAgreement(companyId).then( dataDel =>
@@ -63,7 +69,12 @@ function AgreementPage() {
 
       }
       )
-    
+  }
+
+  const onClickUpdate = (careerId) => {
+    setUpdating(true);
+    setOpenModal(true);
+    setAgreementIdEdit(careerId);
   }
 
   return (
@@ -77,6 +88,18 @@ function AgreementPage() {
             Nuevo
           </Button>
         </div>
+        <div className="button-container">
+        <form onSubmit={onSubmit}>
+          <input 
+              name="itemSearch"
+              value={itemSearch}
+              onChange={onChange}
+          />
+          <button type="submit" className="button-new-career">Buscar</button>
+        </form>
+        
+      </div>
+
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -102,6 +125,9 @@ function AgreementPage() {
                   <TableCell align="left">
                     <IconButton size="small" aria-label="delete" onClick={() => { onClickDelete(row.id) }}>
                       <DeleteIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton size="small" aria-label="delete" onClick={() => { onClickUpdate(row.id) }}>
+                      <EditIcon fontSize="small" />
                     </IconButton>
                   </TableCell>
 

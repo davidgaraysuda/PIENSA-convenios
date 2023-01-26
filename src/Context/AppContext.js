@@ -4,7 +4,7 @@ const AppContext = React.createContext();
 function AppProvider (props) {
     const [ openModal , setOpenModal ]=useState(false);
     const [ customerIdEdit , setCustomerIdEdit ]=useState(null);
-    const [ productIdEdit , setProductIdEdit ]=useState(null);
+    const [ careerIdEdit , setCareerIdEdit ]=useState(null);
     const [ ambienceIdEdit , setAmbienceIdEdit ]=useState(null);
     const [ providerIdEdit , setProviderIdEdit ]=useState(null);
     const [ expenseIdEdit , setExpenseIdEdit ]=useState(null);
@@ -20,7 +20,7 @@ function AppProvider (props) {
         <AppContext.Provider value = {{
             openModal,setOpenModal,
             customerIdEdit,setCustomerIdEdit,
-            productIdEdit , setProductIdEdit,
+            careerIdEdit , setCareerIdEdit,
             updating, setUpdating,
             contractId, setContractId,
             customerNewContract, setCustomerNewContract,

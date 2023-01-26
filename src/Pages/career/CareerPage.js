@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {getListCareer } from '../../Services/careerService'
+import {getListCareer, deleteCareer } from '../../Services/careerService'
 import CareerNew from "./CareerNew.js";
 import CareerUpdate from './CareerUpdate'
 
@@ -11,10 +11,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 
 import IconButton from '@mui/material/IconButton';
 import ListIcon from '@mui/icons-material/List';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { AppContext } from "../../Context/AppContext";
 import { Modal } from '../../Modal/index'
@@ -45,6 +47,22 @@ function CareerPage() {
     setCareerIdEdit(careerId);
   }
 
+  const onClickDelete = (careerId) => {
+    deleteCareer(careerId).then( dataDel =>
+      {
+        getListCareer().then(data => {
+          setCareer(data);
+          setLoading(false);
+        })
+
+      }
+      )
+    
+  }
+
+  const handleClickOpen = () => {
+    setOpenModal(true);
+  };
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -60,6 +78,13 @@ function CareerPage() {
     <div className="career-page-container">
       <div className="career-page">
       <h2>Carreras</h2>
+      <div className="button-container">
+          <form onSubmit={onSubmit}>
+          </form>
+          <Button variant="outlined" onClick={handleClickOpen}>
+            Nuevo
+          </Button>
+        </div>
       <div className="button-container">
         <form onSubmit={onSubmit}>
           <input 
@@ -91,8 +116,11 @@ function CareerPage() {
               <TableCell align="left">
                 {row.name}
               </TableCell>
-              <TableCell align="left">{row.coordinador}</TableCell>
+              <TableCell align="left">{row.coordinator}</TableCell>
               <TableCell align="left">
+              <IconButton size="small" aria-label="delete" onClick={() => { onClickDelete(row.id) }}>
+                      <DeleteIcon fontSize="small" />
+                    </IconButton>
                 <IconButton size="small" aria-label="delete" onClick={() => { onClickUpdate(row.id) }}>
                   <EditIcon fontSize="small" />
                 </IconButton>

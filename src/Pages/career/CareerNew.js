@@ -34,7 +34,6 @@ function CareerNew() {
     event.preventDefault();
     setSaving(true);
     setError(false);
-    setRefreshCareer(false);
     if (!name) {
       setError(true)
       return
@@ -45,7 +44,6 @@ function CareerNew() {
 
     }).then(data => {     
       if (data.status === 200){
-        setRefreshCareer(true);
         setName('')
         setCoordinador('')
         setSaving(false);

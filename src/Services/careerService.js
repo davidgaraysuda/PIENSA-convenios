@@ -4,7 +4,7 @@ import getHeadersAndToken from '../consts/headersToken'
 const model = 'career'
 
 const getListCareer = async () => {
-    const response = await fetch(`${API}/career`,{
+    const response = await fetch(`${API}/carreras`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });    
@@ -51,7 +51,7 @@ const listByCodeCareer = async (itemSearch) => {
 }
 
 const createCareer = async (career) => {
-    const resp = await fetch(`${API}/career`, {
+    const resp = await fetch(`${API}/carreras`, {
         method: 'POST',
         body: JSON.stringify(career),
         headers: getHeadersAndToken()
@@ -60,7 +60,8 @@ const createCareer = async (career) => {
 }
 
 const findByIdCareer = async (careerId) => {
-    const response = await fetch(`${API}/career/${careerId}`,{
+
+    const response = await fetch(`${API}/carreras/${careerId}`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });  
@@ -70,7 +71,7 @@ const findByIdCareer = async (careerId) => {
 
 const listByNameCareer = async (itemSearch) => {
     
-    const response = await fetch(`${API}/career/search/${itemSearch}`,{
+    const response = await fetch(`${API}/carreras/search/${itemSearch}`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });  
@@ -80,7 +81,7 @@ const listByNameCareer = async (itemSearch) => {
 
 const updateCareer = async (career) => {
   
-    const resp = await fetch(`${API}/career`, {
+    const resp = await fetch(`${API}/carreras`, {
         method: 'PUT',
         body: JSON.stringify(career),
         headers: getHeadersAndToken()
@@ -88,6 +89,13 @@ const updateCareer = async (career) => {
     return await resp.json();
 }
 
+const deleteCareer = async (careerId) => {
+    const resp = await fetch(`${API}/carreras/delete/${careerId}`, {
+        method: 'DELETE',
+        headers: getHeadersAndToken()              
+    });
+    return await resp.json();
+}
 
 export {
     getListCareer,
@@ -98,6 +106,7 @@ export {
     getListCareerAmbience,
     listByCodeCareer,
     getCareerById,
-    getCareerByCode
+    getCareerByCode,
+    deleteCareer
 
 }
