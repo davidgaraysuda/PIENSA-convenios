@@ -1,129 +1,94 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { AppContext } from "../../Context/AppContext";
 import { createCareer } from '../../Services/careerService'
-import { getListCareer } from '../../Services/careerService'
 import './CareerNew.css'
+
 //import { InvoiceContext } from "../invoice/InvoiceContext";
+//import { createAmbience } from '../../Services/agreementService'
 
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
-
-
-function CareerNew() {
-  const {  setRefreshCareer
-   } = React.useContext(AppContext);
-  const { setOpenModal, setUpdating } = React.useContext(AppContext);
-  const [name, setName] = useState('');
-  const [coordinador, setCoordinador] = useState('');
+function CareerNew({ open }) {
+  const { searchCareer, setSearchCareer } = React.useContext(AppContext);
+  const { setCareerId, setOpenModal, setUpdating} = React.useContext(AppContext);  
+  const [career, setCareer] = useState({ name: '', phone: '', contact: '', status:''});
   const [error, setError] = useState(false);
-  const [careers, setCareers] = useState([]);
+  const [name, setName] = useState('');
+  const [coordinator, setCoordinator] = useState('');
 
-  const [saving, setSaving] = useState(false);
+  const onClickSave = () => {
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    setSaving(true);
-    setError(false);
     if (!name) {
       setError(true)
-      return
     }
-    createCareer({
-      name,
-      coordinador
-
-    }).then(data => {     
-      if (data.status === 200){
-        setName('')
-        setCoordinador('')
-        setSaving(false);
-      }
-      else{
-        setError(true);
-        setSaving(false);
-      }
-
-      
-
-    })
+    else {
+      createCareer({
+        name, 
+        coordinator
+      }).then(data => {
+        setOpenModal(false);
+        setSearchCareer(data.name)
+      })
+    }
   }
-
-  useEffect(() => {
-    getListCareer().then(data =>
-      setCareers(data)
-    );
-  }, []);
 
 
   const onChange = (event) => {
     if (event.target.name === 'name')
       setName(event.target.value)
-    if (event.target.name === 'coordinador')
-      setCoordinador(event.target.value)
-
+    if (event.target.name === 'coordinator')
+      setCoordinator(event.target.value)
   }
 
+  const handleClose = () => {
+    setOpenModal(false);
+  };
+
   return (
-    <div className="career">
-      <div className="career__container">
-        <Typography variant="h5" component="h5">
-          Carrera
-        </Typography>
 
-        <form onSubmit={onSubmit} className="career__form">
+    <div>
 
-          <TextField
-            size="small"
-            id="outlined-basic"
-            label="Nombre de la carrera"
-            variant="outlined"
-            name="name"
-            value={name}
-            onChange={onChange}
-          />
+    <Dialog open={open} onClose={handleClose} >
+      <DialogTitle>Nueva Carrera</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          Indicación: Ingresar nombre de la carrera con su coordinador
+        </DialogContentText>
+        <TextField
+          autoFocus
+          margin="dense"
+          id="name"
+          label="Nombre de la carrera"          
+          name="name"
+          fullWidth
+          onChange={onChange}
+          variant="standard"
+        />
 
-
-          <TextField
-            size="small"
-            id="outlined-basic"
-            label="Coordinador de la carrera"
-            variant="outlined"
-            name="coordinador"
-            value={coordinador}
-            onChange={onChange}
-          />
-
-      <Button type="submit" variant="outlined">Guardar</Button>
-
-          {
-            (error && 
-              <Stack sx={{ width: '100%' }} spacing={2}>
-              <Alert severity="error">Nombre de la carrera || Coordinador de la carrera</Alert>
-            </Stack>
-              
-              )
-          }
-                  {
-          saving && (
-            <Stack sx={{ width: '100%' }} spacing={2}>
-              <Alert severity="info">Guardando</Alert>
-            </Stack>
-          )
-        }
-
-        </form>
-      </div>
-    </div>
+        <TextField
+          autoFocus
+          margin="dense"
+          id="name"
+          label="Coordinador"          
+          name="coordinator"
+          fullWidth
+          onChange={onChange}
+          variant="standard"
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>Cancelar</Button>
+        <Button onClick={onClickSave}>Guardar</Button>
+      </DialogActions>
+    </Dialog>
+  </div>
 
   );
 

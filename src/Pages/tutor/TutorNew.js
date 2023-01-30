@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AppContext } from "../../Context/AppContext";
-import { createCompany } from '../../Services/companyService'
-import './CompanyNew.css'
+import { createTutor } from '../../Services/tutorService'
+import './TutorNew.css'
 
 //import { InvoiceContext } from "../invoice/InvoiceContext";
 //import { createAmbience } from '../../Services/agreementService'
@@ -15,15 +15,17 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-function CompanyNew({ open }) {
-  const { searchCompany, setSearchCompany } = React.useContext(AppContext);
-  const { setCompanyId, setOpenModal, setUpdating} = React.useContext(AppContext);  
-  const [company, setCompany] = useState({ name: '', phone: '', contact: '', status:''});
+function TutorNew({ open }) {
+  const { searchTutor, setSearchTutor } = React.useContext(AppContext);
+  const { setTutorId, setOpenModal, setUpdating} = React.useContext(AppContext);  
+  const [tutor, setTutor] = useState({ name: '', phone: '', contact: '', status:''});
   const [error, setError] = useState(false);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [contact, setContact] = useState('');
-  const [state, setState] = useState('');
+  const [email, setEmail] = useState('');
+  const [alternative, setAlternative] = useState('');
+  const [companyId, setCompanyId] = useState('');
+  const [status, setStatus] = useState('');
 
   const onClickSave = () => {
 
@@ -31,12 +33,13 @@ function CompanyNew({ open }) {
       setError(true)
     }
     else {
-      createCompany({
+      createTutor({
         name, 
-        state
+        phone,
+        status
       }).then(data => {
         setOpenModal(false);
-        setSearchCompany(data.name)
+        setSearchTutor(data.name)
       })
     }
   }
@@ -45,12 +48,16 @@ function CompanyNew({ open }) {
   const onChange = (event) => {
     if (event.target.name === 'name')
       setName(event.target.value)
+    if (event.target.name === 'email')
+      setEmail(event.target.value)
     if (event.target.name === 'phone')
       setPhone(event.target.value)
-    if (event.target.name === 'contact')
-      setContact(event.target.value)
-    if (event.target.name === 'state')
-      setState(event.target.value)
+    if (event.target.name === 'alternative')
+      setAlternative(event.target.value)
+    if (event.target.name === 'status')
+      setStatus(event.target.value)
+    if (event.target.name === 'companyId')
+      setCompanyId(event.target.value)
 
   }
 
@@ -63,21 +70,34 @@ function CompanyNew({ open }) {
     <div>
 
     <Dialog open={open} onClose={handleClose} >
-      <DialogTitle>Nueva Empresa </DialogTitle>
+      <DialogTitle>Nuevo Tutor Empresarial </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Indicación: Ingresar nombre de la empresa y estado actual
+          Indicación: Ingresar nombre del tutor y un contacto
         </DialogContentText>
         <TextField
           autoFocus
           margin="dense"
           id="name"
-          label="Nombre de la empresa"          
+          label="Nombre del Tutor"          
           name="name"
           fullWidth
           onChange={onChange}
           variant="standard"
         />
+
+
+        <TextField
+          autoFocus
+          margin="dense"
+          id="name"
+          label="Email"          
+          name="email"
+          fullWidth
+          onChange={onChange}
+          variant="standard"
+        />
+
 
         <TextField
           autoFocus
@@ -94,8 +114,8 @@ function CompanyNew({ open }) {
           autoFocus
           margin="dense"
           id="name"
-          label="Contacto"          
-          name="contact"
+          label="Tutor Alternativo"          
+          name="alternative"
           fullWidth
           onChange={onChange}
           variant="standard"
@@ -111,6 +131,18 @@ function CompanyNew({ open }) {
           onChange={onChange}
           variant="standard"
         />
+
+        <TextField
+          autoFocus
+          margin="dense"
+          id="name"
+          label="Empresa"          
+          name="companyId"
+          fullWidth
+          onChange={onChange}
+          variant="standard"
+        />
+
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancelar</Button>
@@ -123,4 +155,4 @@ function CompanyNew({ open }) {
 
 }
 
-export default CompanyNew
+export default TutorNew

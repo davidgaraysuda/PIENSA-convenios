@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import CompanyList from './CompanyList';
-import Company from './Company'
-import { getListCompany, deleteCompany } from '../../Services/companyService'
-import CompanyNew from "./CompanyNew.js";
+import TutorList from './TutorList';
+import Tutor from './Tutor'
+import { getListTutor, deleteTutor } from '../../Services/tutorService'
+import TutorNew from "./TutorNew.js";
 
 import { AppContext } from "../../Context/AppContext";
 import { Modal } from '../../Modal/index'
-import './CompanyPage.css'
+import './TutorPage.css'
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -29,17 +29,17 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-function CompanyPage() {
+function TutorPage() {
 
-  const { openModal, setOpenModal, companyIdEdit, updating, setCompanyIdEdit, setUpdating } = React.useContext(AppContext);
+  const { openModal, setOpenModal, tutorIdEdit, updating, setTutorIdEdit, setUpdating } = React.useContext(AppContext);
 
   const [loading, setLoading] = useState(true);
-  const [company, setCompany] = useState([]);
+  const [tutor, setTutor] = useState([]);
   const [itemSearch, setItemSearch] = useState('');
 
   useEffect(() => {
-    getListCompany().then(data => {
-      setCompany(data);
+    getListTutor().then(data => {
+      setTutor(data);
       setLoading(false);
     }
     );
@@ -59,11 +59,11 @@ function CompanyPage() {
   }
 
 
-  const onClickDelete = (companyId) => {
-    deleteCompany(companyId).then( dataDel =>
+  const onClickDelete = (tutorId) => {
+    deleteTutor(tutorId).then( dataDel =>
       {
-        getListCompany().then(data => {
-          setCompany(data);
+        getListTutor().then(data => {
+          setTutor(data);
           setLoading(false);
         })
 
@@ -71,16 +71,16 @@ function CompanyPage() {
       )
   }
 
-  const onClickUpdate = (companyId) => {
+  const onClickUpdate = (tutorId) => {
     setUpdating(true);
     setOpenModal(true);
-    setCompanyIdEdit(companyId);
+    setTutorIdEdit(tutorId);
   }
 
   return (
-    <div className="company-page-container">
-      <div className="company-page">
-        <h2>Empresas</h2>
+    <div className="tutor-page-container">
+      <div className="tutor-page">
+        <h2>Tutores Empresariales</h2>
         <div className="button-container">
           <form onSubmit={onSubmit}>
           </form>
@@ -104,20 +104,24 @@ function CompanyPage() {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Nombre de la empresa</TableCell>
+                <TableCell>Nombre</TableCell>
+                <TableCell align="left">Email</TableCell>
                 <TableCell align="left">Teléfono</TableCell>
-                <TableCell align="left">Contacto Adicional</TableCell>
+                <TableCell align="left">Tutor alterno</TableCell>
                 <TableCell align="left">Estado</TableCell>
+                <TableCell align="left">Empresa</TableCell>
                 <TableCell align="left"><ListIcon /></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {company.map((row) => (
+              {tutor.map((row) => (
                 <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell align="left">{row.name}</TableCell>
+                  <TableCell align="left">{row.email}</TableCell>
                   <TableCell align="left">{row.phone}</TableCell>
-                  <TableCell align="left">{row.contact}</TableCell>
-                  <TableCell align="left">{row.state}</TableCell>
+                  <TableCell align="left">{row.alternative}</TableCell>
+                  <TableCell align="left">{row.status}</TableCell>
+                  <TableCell align="left">{row.companyId}</TableCell>
                   <TableCell align="left">
                     <IconButton size="small" aria-label="delete" onClick={() => { onClickDelete(row.id) }}>
                       <DeleteIcon fontSize="small" />
@@ -133,9 +137,9 @@ function CompanyPage() {
           </Table>
         </TableContainer>
       </div>
-      <CompanyNew open={openModal} />
+      <TutorNew open={openModal} />
     </div>
   );
 }
 
-export default CompanyPage;
+export default TutorPage;

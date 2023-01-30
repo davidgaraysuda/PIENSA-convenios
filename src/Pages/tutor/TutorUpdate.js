@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { AppContext } from "../../Context/AppContext";
-import { findByIdCompany, updateCompany } from '../../Services/companyService'
-import './CompanyUpdate.css'
+import { findByIdTutor, updateTutor } from '../../Services/tutorService'
+import './TutorUpdate.css'
 
-function CompanyUpdate({ companyId }) {
+function TutorUpdate({ tutorId }) {
     const [closssing, setClossing] = useState('')
     const { setOpenModal, setUpdating } = React.useContext(AppContext);
-    const [company, setCompany] = useState({});
+    const [tutor, setTutor] = useState({});
   
     const onSubmit = (event) => {
         event.preventDefault();
-        updateCompany(company).then(data => {
+        updateTutor(tutor).then(data => {
             setClossing(data.name);
             setOpenModal(false);
             setUpdating(false);
@@ -24,23 +24,23 @@ function CompanyUpdate({ companyId }) {
     }
 
     const onChange = (event) => {
-        setCompany({
-            ...company,
+        setTutor({
+            ...tutor,
             [event.target.name]: event.target.value
         })
     }
 
     useEffect(() => {
-        findByIdCompany(companyId).then(data =>
-            setCompany(data)
+        findByIdTutor(tutorId).then(data =>
+            setTutor(data)
         );
-    }, [companyId]);
+    }, [tutorId]);
 
     return (
         <div className="update">
             <div className="update-form-container">                
                 <div className="modal__tittle">
-            <h1 className="title">Editar Empresa</h1>
+            <h1 className="title">Editar Tutor Empresarial</h1>
                 {closssing && <p>Actualizando... {closssing}</p>}
             <button className="modal__button__close" onClick={onClickClose}>x</button>
           </div>
@@ -50,19 +50,34 @@ function CompanyUpdate({ companyId }) {
                             Nombre
                             <input
                                 name="name"
-                                value={company.name}
+                                value={tutor.name}
                                 onChange={onChange}
                                 className="update-input"
                             />
                         </label>
     
                     </div>
+
+                    <div className="update-form-row">
+                        <label className="update-label">
+                            Email
+                            <input
+                                name="email"
+                                value={tutor.email}
+                                onChange={onChange}
+                                className="update-input"
+                            />
+                        </label>
+
+                    </div>
+
+
                     <div className="update-form-row">
                         <label className="update-label">
                             Teléfono
                             <input
                                 name="phone"
-                                value={company.phone}
+                                value={tutor.phone}
                                 onChange={onChange}
                                 className="update-input"
                             />
@@ -72,10 +87,10 @@ function CompanyUpdate({ companyId }) {
 
                     <div className="update-form-row">
                         <label className="update-label">
-                            Contacto
+                            Tutor Alterno
                             <input
-                                name="contact"
-                                value={company.contact}
+                                name="alternative"
+                                value={tutor.alternative}
                                 onChange={onChange}
                                 className="update-input"
                             />
@@ -88,7 +103,20 @@ function CompanyUpdate({ companyId }) {
                             Estado
                             <input
                                 name="status"
-                                value={company.status}
+                                value={tutor.status}
+                                onChange={onChange}
+                                className="update-input"
+                            />
+                        </label>
+
+                    </div>
+
+                    <div className="update-form-row">
+                        <label className="update-label">
+                            Empresa
+                            <input
+                                name="companyId"
+                                value={tutor.companyId}
                                 onChange={onChange}
                                 className="update-input"
                             />
@@ -105,4 +133,4 @@ function CompanyUpdate({ companyId }) {
     );
 }
 
-export default CompanyUpdate
+export default TutorUpdate

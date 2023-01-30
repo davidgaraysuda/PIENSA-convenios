@@ -16,7 +16,9 @@ import { Link } from 'react-router-dom';
 
 const pages = [{name:'Company', text:'Empresas'}, 
                 {name:'Career', text:'Carreras'},
-                {name:'Agreement', text:'Convenios'}
+                {name:'Agreement', text:'Convenios'},
+                {name:'Tutor', text:'Tutores Empresariales'},
+                {name:'Teacher', text:'Tutores Academicos'},
               ];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 

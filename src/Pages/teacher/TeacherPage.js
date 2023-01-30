@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import CompanyList from './CompanyList';
-import Company from './Company'
-import { getListCompany, deleteCompany } from '../../Services/companyService'
-import CompanyNew from "./CompanyNew.js";
+import TeacherList from './TeacherList';
+import Teacher from './Teacher'
+import { getListTeacher, deleteTeacher } from '../../Services/teacherService'
+import TeacherNew from "./TeacherNew.js";
 
 import { AppContext } from "../../Context/AppContext";
 import { Modal } from '../../Modal/index'
-import './CompanyPage.css'
+import './TeacherPage.css'
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -29,17 +29,17 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-function CompanyPage() {
+function TeacherPage() {
 
-  const { openModal, setOpenModal, companyIdEdit, updating, setCompanyIdEdit, setUpdating } = React.useContext(AppContext);
+  const { openModal, setOpenModal, teacherIdEdit, updating, setTeacherIdEdit, setUpdating } = React.useContext(AppContext);
 
   const [loading, setLoading] = useState(true);
-  const [company, setCompany] = useState([]);
+  const [teacher, setTeacher] = useState([]);
   const [itemSearch, setItemSearch] = useState('');
 
   useEffect(() => {
-    getListCompany().then(data => {
-      setCompany(data);
+    getListTeacher().then(data => {
+      setTeacher(data);
       setLoading(false);
     }
     );
@@ -59,11 +59,11 @@ function CompanyPage() {
   }
 
 
-  const onClickDelete = (companyId) => {
-    deleteCompany(companyId).then( dataDel =>
+  const onClickDelete = (teacherId) => {
+    deleteTeacher(teacherId).then( dataDel =>
       {
-        getListCompany().then(data => {
-          setCompany(data);
+        getListTeacher().then(data => {
+          setTeacher(data);
           setLoading(false);
         })
 
@@ -71,16 +71,16 @@ function CompanyPage() {
       )
   }
 
-  const onClickUpdate = (companyId) => {
+  const onClickUpdate = (teacherId) => {
     setUpdating(true);
     setOpenModal(true);
-    setCompanyIdEdit(companyId);
+    setTeacherIdEdit(teacherId);
   }
 
   return (
-    <div className="company-page-container">
-      <div className="company-page">
-        <h2>Empresas</h2>
+    <div className="teacher-page-container">
+      <div className="teacher-page">
+        <h2>Tutores Academicos</h2>
         <div className="button-container">
           <form onSubmit={onSubmit}>
           </form>
@@ -104,20 +104,20 @@ function CompanyPage() {
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Nombre de la empresa</TableCell>
+                <TableCell>Nombre</TableCell>
                 <TableCell align="left">Teléfono</TableCell>
-                <TableCell align="left">Contacto Adicional</TableCell>
                 <TableCell align="left">Estado</TableCell>
+                <TableCell align="left">Carrera</TableCell>
                 <TableCell align="left"><ListIcon /></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {company.map((row) => (
+              {teacher.map((row) => (
                 <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell align="left">{row.name}</TableCell>
                   <TableCell align="left">{row.phone}</TableCell>
-                  <TableCell align="left">{row.contact}</TableCell>
-                  <TableCell align="left">{row.state}</TableCell>
+                  <TableCell align="left">{row.status}</TableCell>
+                  <TableCell align="left">{row.careerId}</TableCell>
                   <TableCell align="left">
                     <IconButton size="small" aria-label="delete" onClick={() => { onClickDelete(row.id) }}>
                       <DeleteIcon fontSize="small" />
@@ -133,9 +133,9 @@ function CompanyPage() {
           </Table>
         </TableContainer>
       </div>
-      <CompanyNew open={openModal} />
+      <TeacherNew open={openModal} />
     </div>
   );
 }
 
-export default CompanyPage;
+export default TeacherPage;

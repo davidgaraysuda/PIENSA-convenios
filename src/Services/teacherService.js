@@ -3,8 +3,8 @@ import API from '../consts/url'
 import getHeadersAndToken from '../consts/headersToken'
 
 
-const getListCompany = async () => {
-    const response = await fetch(`${API}/company`,{
+const getListTeacher = async () => {
+    const response = await fetch(`${API}/teacher`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });    
@@ -13,18 +13,18 @@ const getListCompany = async () => {
     return  data;
 }
 
-const createCompany = async (company) => {
+const createTeacher = async (teacher) => {
 
-    const resp = await fetch(`${API}/company`, {
+    const resp = await fetch(`${API}/teacher`, {
         method: 'POST',
-        body: JSON.stringify(company),
+        body: JSON.stringify(teacher),
         headers: getHeadersAndToken()
     });
     return await resp.json();
 }
 
-const findByIdCompany = async (companyId) => {
-    const response = await fetch(`${API}/company/${companyId}`,{
+const findByIdTeacher = async (teacherId) => {
+    const response = await fetch(`${API}/teacher/${teacherId}`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });  
@@ -32,18 +32,18 @@ const findByIdCompany = async (companyId) => {
     return  data;
 }
 
-const listByNameCompany = async (itemSearch) => {
+const listByNameTeacher = async (itemSearch) => {
     
-    const response = await fetch(`${API}/company/search/${itemSearch}`,{
+    const response = await fetch(`${API}/teacher/search/${itemSearch}`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });  
     const data = await response.json();     
     return  data;
 }
-const listByNuiCompany = async (itemSearch) => {
+const listByNuiTeacher = async (itemSearch) => {
   
-    const response = await fetch(`${API}/company/search/${itemSearch}/nui`,{
+    const response = await fetch(`${API}/teacher/search/${itemSearch}/nui`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });  
@@ -53,18 +53,18 @@ const listByNuiCompany = async (itemSearch) => {
 }
 
 
-const updateCompany = async (company) => {
+const updateTeacher = async (teacher) => {
   
-    const resp = await fetch(`${API}/company`, {
+    const resp = await fetch(`${API}/teacher`, {
         method: 'PUT',
-        body: JSON.stringify(company),
+        body: JSON.stringify(teacher),
         headers: getHeadersAndToken()
     });
     return await resp.json();
 }
 
-const deleteCompany = async (companyId) => {
-    const resp = await fetch(`${API}/company/delete/${companyId}`, {
+const deleteTeacher = async (teacherId) => {
+    const resp = await fetch(`${API}/teacher/delete/${teacherId}`, {
         method: 'DELETE',
         headers: getHeadersAndToken()              
     });
@@ -73,12 +73,12 @@ const deleteCompany = async (companyId) => {
 
 
 export {
-    getListCompany,
-    createCompany,
-    findByIdCompany,
-    updateCompany,
-    listByNameCompany,
-    listByNuiCompany,
-    deleteCompany
+    getListTeacher,
+    createTeacher,
+    findByIdTeacher,
+    updateTeacher,
+    listByNameTeacher,
+    listByNuiTeacher,
+    deleteTeacher
     
 }

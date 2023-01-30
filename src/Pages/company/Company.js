@@ -1,17 +1,17 @@
 
 import React, {useContext}from 'react';
-import './Agreement.css'
+import './Company.css'
 import { AppContext } from "../../Context/AppContext";
 import EditIco from '../../img/ic_create_48px.png'
 import DelIco from '../../img/delete.png'
 
-function Agreement({ agreementItem }) {
-    const { setAgreementIdEdit, setOpenModal,setUpdating } = useContext(AppContext);
+function Company({ companyItem }) {
+    const { setCompanyIdEdit, setOpenModal,setUpdating } = useContext(AppContext);
     
     const onClick = () => {
         setUpdating(true);
         setOpenModal(true);
-        setAgreementIdEdit(agreementItem.id);
+        setCompanyIdEdit(companyItem.id);
     }
 
     const onClickDel = () => {
@@ -20,13 +20,11 @@ function Agreement({ agreementItem }) {
 
     return (
         <tr>
-            <td>{agreementItem.id} </td>
-            <td>{agreementItem.fechaInicio} </td>   
-            <td>{agreementItem.fechaFin} </td>   
-            <td>{agreementItem.state} </td>   
-            <td>{agreementItem.companyId} </td>  
-            <td>{agreementItem.tutorId} </td>  
-            <td>{agreementItem.teacherId} </td>                        
+            <td>{companyItem.id} </td>
+            <td>{companyItem.name} </td>   
+            <td>{companyItem.phone} </td>   
+            <td>{companyItem.contact} </td>   
+            <td>{companyItem.state} </td>                         
             <td>
                 <button>
                     <img src={EditIco} onClick={onClick} alt="edit" width="16" height="16" /> 
@@ -41,4 +39,4 @@ function Agreement({ agreementItem }) {
     );
 }
 
-export default Agreement
+export default Company
