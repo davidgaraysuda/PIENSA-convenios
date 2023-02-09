@@ -113,7 +113,7 @@ function CareerPage() {
               {career.map((row) => (
                 <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell align="left">{row.name}</TableCell>
-                  <TableCell align="left">{row.phone}</TableCell>
+                  <TableCell align="left">{row.coordinator}</TableCell>
                   <TableCell align="left">
                     <IconButton size="small" aria-label="delete" onClick={() => { onClickDelete(row.id) }}>
                       <DeleteIcon fontSize="small" />

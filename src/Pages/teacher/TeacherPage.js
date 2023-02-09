@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TeacherList from './TeacherList';
 import Teacher from './Teacher'
-import { getListTeacher, deleteTeacher } from '../../Services/teacherService'
+import { getListTeacher, deleteTeacher, getListTeacherCareer } from '../../Services/teacherService'
 import TeacherNew from "./TeacherNew.js";
 
 import { AppContext } from "../../Context/AppContext";
@@ -38,7 +38,7 @@ function TeacherPage() {
   const [itemSearch, setItemSearch] = useState('');
 
   useEffect(() => {
-    getListTeacher().then(data => {
+    getListTeacherCareer().then(data => {
       setTeacher(data);
       setLoading(false);
     }

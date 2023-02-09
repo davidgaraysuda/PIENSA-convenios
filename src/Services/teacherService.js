@@ -13,6 +13,16 @@ const getListTeacher = async () => {
     return  data;
 }
 
+const getListTeacherCareer = async () => {
+    const response = await fetch(`${API}/teacher/with/career`,{
+        method: 'GET',        
+        headers: getHeadersAndToken()
+    });    
+    const data = await response.json();
+//    console.log(data)
+    return  data;
+}
+
 const createTeacher = async (teacher) => {
 
     const resp = await fetch(`${API}/teacher`, {
@@ -79,6 +89,7 @@ export {
     updateTeacher,
     listByNameTeacher,
     listByNuiTeacher,
-    deleteTeacher
+    deleteTeacher,
+    getListTeacherCareer
     
 }

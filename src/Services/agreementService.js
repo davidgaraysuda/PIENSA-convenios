@@ -3,7 +3,7 @@ import API from '../consts/url'
 import getHeadersAndToken from '../consts/headersToken'
 const model = 'agreement'
 const getListAgreement = async () => {
-    const response = await fetch(`${API}/${model}`,{
+    const response = await fetch(`${API}/agreement`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });    
