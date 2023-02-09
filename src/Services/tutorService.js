@@ -4,7 +4,7 @@ import getHeadersAndToken from '../consts/headersToken'
 
 
 const getListTutor = async () => {
-    const response = await fetch(`${API}/tutor`,{
+    const response = await fetch(`${API}/tutors`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });    
@@ -15,7 +15,7 @@ const getListTutor = async () => {
 
 const createTutor = async (tutor) => {
 
-    const resp = await fetch(`${API}/tutor`, {
+    const resp = await fetch(`${API}/tutors`, {
         method: 'POST',
         body: JSON.stringify(tutor),
         headers: getHeadersAndToken()
@@ -24,7 +24,7 @@ const createTutor = async (tutor) => {
 }
 
 const findByIdTutor = async (tutorId) => {
-    const response = await fetch(`${API}/tutor/${tutorId}`,{
+    const response = await fetch(`${API}/tutors/${tutorId}`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });  
@@ -34,28 +34,18 @@ const findByIdTutor = async (tutorId) => {
 
 const listByNameTutor = async (itemSearch) => {
     
-    const response = await fetch(`${API}/tutor/search/${itemSearch}`,{
+    const response = await fetch(`${API}/tutors/search/${itemSearch}`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });  
     const data = await response.json();     
-    return  data;
-}
-const listByNuiTutor = async (itemSearch) => {
-  
-    const response = await fetch(`${API}/tutor/search/${itemSearch}/nui`,{
-        method: 'GET',        
-        headers: getHeadersAndToken()
-    });  
-    const data = await response.json();     
-    
     return  data;
 }
 
 
 const updateTutor = async (tutor) => {
   
-    const resp = await fetch(`${API}/tutor`, {
+    const resp = await fetch(`${API}/tutors`, {
         method: 'PUT',
         body: JSON.stringify(tutor),
         headers: getHeadersAndToken()
@@ -64,7 +54,7 @@ const updateTutor = async (tutor) => {
 }
 
 const deleteTutor = async (tutorId) => {
-    const resp = await fetch(`${API}/tutor/delete/${tutorId}`, {
+    const resp = await fetch(`${API}/tutors/delete/${tutorId}`, {
         method: 'DELETE',
         headers: getHeadersAndToken()              
     });
@@ -78,7 +68,6 @@ export {
     findByIdTutor,
     updateTutor,
     listByNameTutor,
-    listByNuiTutor,
     deleteTutor
     
 }

@@ -69,6 +69,16 @@ const findByIdCareer = async (careerId) => {
     return  data;
 }
 
+const findAllCareer = async () => {
+
+    const response = await fetch(`${API}/carreras`,{
+        method: 'GET',        
+        headers: getHeadersAndToken()
+    });  
+    const data = await response.json();     
+    return  data;
+}
+
 const listByNameCareer = async (itemSearch) => {
     
     const response = await fetch(`${API}/carreras/search/${itemSearch}`,{
@@ -107,6 +117,7 @@ export {
     listByCodeCareer,
     getCareerById,
     getCareerByCode,
-    deleteCareer
+    deleteCareer, 
+    findAllCareer
 
 }

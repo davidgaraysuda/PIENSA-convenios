@@ -66,6 +66,7 @@ function CareerUpdate({ careerId }) {
                                 value={career.coordinator}
                                 onChange={onChange}
                                 className="update-input"
+                            
                             />
                         </label>
 

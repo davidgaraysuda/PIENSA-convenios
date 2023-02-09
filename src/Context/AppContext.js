@@ -5,6 +5,7 @@ function AppProvider (props) {
     const [ openModal , setOpenModal ]=useState(false);
     const [ companyIdEdit , setCompanyIdEdit ]=useState(null);
     const [ careerIdEdit , setCareerIdEdit ]=useState(null);
+    const [ teacherIdEdit , setTeacherIdEdit ]=useState(null);
     const [ agreementIdEdit , setAgreementIdEdit ]=useState(null);
     const [ providerIdEdit , setProviderIdEdit ]=useState(null);
     const [ expenseIdEdit , setExpenseIdEdit ]=useState(null);
@@ -31,7 +32,7 @@ function AppProvider (props) {
             customerId, setCustomerId,
             role, setRole,
             token, setToken,
-
+            teacherIdEdit , setTeacherIdEdit
             
 
         }} >

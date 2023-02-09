@@ -2,9 +2,10 @@
 import API from '../consts/url'
 import getHeadersAndToken from '../consts/headersToken'
 
+const path="teachers"
 
 const getListTeacher = async () => {
-    const response = await fetch(`${API}/teacher`,{
+    const response = await fetch(`${API}/${path}`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });    
@@ -14,7 +15,7 @@ const getListTeacher = async () => {
 }
 
 const getListTeacherCareer = async () => {
-    const response = await fetch(`${API}/teacher/with/career`,{
+    const response = await fetch(`${API}/${path}/with/career`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });    
@@ -25,7 +26,7 @@ const getListTeacherCareer = async () => {
 
 const createTeacher = async (teacher) => {
 
-    const resp = await fetch(`${API}/teacher`, {
+    const resp = await fetch(`${API}/${path}`, {
         method: 'POST',
         body: JSON.stringify(teacher),
         headers: getHeadersAndToken()
@@ -34,7 +35,7 @@ const createTeacher = async (teacher) => {
 }
 
 const findByIdTeacher = async (teacherId) => {
-    const response = await fetch(`${API}/teacher/${teacherId}`,{
+    const response = await fetch(`${API}/${path}/${teacherId}`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });  
@@ -43,17 +44,17 @@ const findByIdTeacher = async (teacherId) => {
 }
 
 const listByNameTeacher = async (itemSearch) => {
-    
-    const response = await fetch(`${API}/teacher/search/${itemSearch}`,{
+    const response = await fetch(`${API}/${path}/search/${itemSearch}`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });  
     const data = await response.json();     
     return  data;
 }
+
 const listByNuiTeacher = async (itemSearch) => {
   
-    const response = await fetch(`${API}/teacher/search/${itemSearch}/nui`,{
+    const response = await fetch(`${API}/${path}/search/${itemSearch}/nui`,{
         method: 'GET',        
         headers: getHeadersAndToken()
     });  
@@ -65,7 +66,7 @@ const listByNuiTeacher = async (itemSearch) => {
 
 const updateTeacher = async (teacher) => {
   
-    const resp = await fetch(`${API}/teacher`, {
+    const resp = await fetch(`${API}/t${path}`, {
         method: 'PUT',
         body: JSON.stringify(teacher),
         headers: getHeadersAndToken()
@@ -74,7 +75,7 @@ const updateTeacher = async (teacher) => {
 }
 
 const deleteTeacher = async (teacherId) => {
-    const resp = await fetch(`${API}/teacher/delete/${teacherId}`, {
+    const resp = await fetch(`${API}/${path}/delete/${teacherId}`, {
         method: 'DELETE',
         headers: getHeadersAndToken()              
     });

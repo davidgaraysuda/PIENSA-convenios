@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import TeacherList from './TeacherList';
-import Teacher from './Teacher'
 import { getListTeacher, deleteTeacher, getListTeacherCareer } from '../../Services/teacherService'
 import TeacherNew from "./TeacherNew.js";
 
@@ -28,10 +26,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import TeacherUpdate from "./TeacherUpdate";
 
 function TeacherPage() {
 
-  const { openModal, setOpenModal, teacherIdEdit, updating, setTeacherIdEdit, setUpdating } = React.useContext(AppContext);
+  const { openModal, setOpenModal,teacherIdEdit, updating, setTeacherIdEdit, setUpdating } = React.useContext(AppContext);
 
   const [loading, setLoading] = useState(true);
   const [teacher, setTeacher] = useState([]);
@@ -47,6 +46,7 @@ function TeacherPage() {
 
   const   handleClickOpen = () => {
     setOpenModal(true);
+    setUpdating(false);
   };
 
   const onSubmit = (event) => {
@@ -117,7 +117,7 @@ function TeacherPage() {
                   <TableCell align="left">{row.name}</TableCell>
                   <TableCell align="left">{row.phone}</TableCell>
                   <TableCell align="left">{row.status}</TableCell>
-                  <TableCell align="left">{row.careerId}</TableCell>
+                  <TableCell align="left">{row.carrera}</TableCell>
                   <TableCell align="left">
                     <IconButton size="small" aria-label="delete" onClick={() => { onClickDelete(row.id) }}>
                       <DeleteIcon fontSize="small" />
@@ -133,7 +133,11 @@ function TeacherPage() {
           </Table>
         </TableContainer>
       </div>
-      <TeacherNew open={openModal} />
+      {!!openModal&&(
+      updating ?
+      <TeacherUpdate open={openModal} teacherId={teacherIdEdit}/>:
+      <TeacherNew open={openModal}/>
+      )}
     </div>
   );
 }

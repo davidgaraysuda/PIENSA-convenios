@@ -69,6 +69,17 @@ const findByIdCompany = async (companyId) => {
     return  data;
 }
 
+const findAllCompany = async () => {
+
+    const response = await fetch(`${API}/company`,{
+        method: 'GET',        
+        headers: getHeadersAndToken()
+    });  
+    const data = await response.json();     
+    return  data;
+}
+
+
 const listByNameCompany = async (itemSearch) => {
     
     const response = await fetch(`${API}/carreras/search/${itemSearch}`,{
@@ -107,6 +118,7 @@ export {
     listByCodeCompany,
     getCompanyById,
     getCompanyByCode,
-    deleteCompany
+    deleteCompany, 
+    findAllCompany
 
 }

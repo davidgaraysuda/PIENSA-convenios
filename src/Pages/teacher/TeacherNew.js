@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AppContext } from "../../Context/AppContext";
 import { createTeacher } from '../../Services/teacherService'
+import { findAllCareer } from '../../Services/careerService'
 import './TeacherNew.css'
 
 //import { InvoiceContext } from "../invoice/InvoiceContext";
@@ -22,8 +23,9 @@ function TeacherNew({ open }) {
   const [error, setError] = useState(false);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [careerId, setCompanyId] = useState('');
+  const [careerId, setCareerId] = useState('');
   const [status, setStatus] = useState('');
+  const [careers, setCareers]= useState([]);
 
   const onClickSave = () => {
 
@@ -51,13 +53,22 @@ function TeacherNew({ open }) {
     if (event.target.name === 'status')
       setStatus(event.target.value)
     if (event.target.name === 'careerId')
-      setCompanyId(event.target.value)
+      setCareerId(event.target.value)
 
   }
 
   const handleClose = () => {
     setOpenModal(false);
   };
+
+  useEffect(() => {
+    findAllCareer().then(data => {
+    //console.log(data)
+      setCareers(data);
+      //setLoading(false);
+    }
+    );
+  }, []);
 
   return (
 
@@ -103,7 +114,7 @@ function TeacherNew({ open }) {
           variant="standard"
         />
 
-        <TextField
+        <select
           autoFocus
           margin="dense"
           id="name"
@@ -112,7 +123,13 @@ function TeacherNew({ open }) {
           fullWidth
           onChange={onChange}
           variant="standard"
-        />
+          value={teacher.carreraId} >
+            <option>Carrera</option>
+            {
+                careers.map(item=>
+                    <option key={item.id} value={item.id}>{item.name}</option>)
+            }
+          </select>
 
       </DialogContent>
       <DialogActions>
